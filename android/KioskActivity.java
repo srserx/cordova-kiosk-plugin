@@ -68,28 +68,34 @@ public class KioskActivity extends CordovaActivity {
     }
     //http://stackoverflow.com/questions/25284233/prevent-status-bar-for-appearing-android-modified?answertab=active#tab-top
     public void addOverlay() {
-        WindowManager manager = ((WindowManager) getApplicationContext()
-                .getSystemService(Context.WINDOW_SERVICE));
+        try
+        {
+            WindowManager manager = ((WindowManager) getApplicationContext()
+                        .getSystemService(Context.WINDOW_SERVICE));
 
-        WindowManager.LayoutParams localLayoutParams = new WindowManager.LayoutParams();
-        localLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
-        localLayoutParams.gravity = Gravity.TOP;
-        localLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|
+            WindowManager.LayoutParams localLayoutParams = new WindowManager.LayoutParams();
+            localLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
+            localLayoutParams.gravity = Gravity.TOP;
+            localLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|
 
-                // this is to enable the notification to recieve touch events
-                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL |
+                    // this is to enable the notification to recieve touch events
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL |
 
-                // Draws over status bar
-                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
+                    // Draws over status bar
+                    WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
 
-        localLayoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-        localLayoutParams.height = (int) (50 * getResources()
-                .getDisplayMetrics().scaledDensity);
-        localLayoutParams.format = PixelFormat.TRANSPARENT;
+            localLayoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+            localLayoutParams.height = (int) (50 * getResources()
+                    .getDisplayMetrics().scaledDensity);
+            localLayoutParams.format = PixelFormat.TRANSPARENT;
 
-        CustomViewGroup view = new CustomViewGroup(this);
+            CustomViewGroup view = new CustomViewGroup(this);
 
-        manager.addView(view, localLayoutParams);
+            manager.addView(view, localLayoutParams);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     protected void onStop() {
